@@ -10,6 +10,7 @@ using System.Configuration;
 
 namespace JGFBFService
 {
+    [DataContract]
     public class GamePick
     {
         public GamePick(string player_name, string user)
@@ -17,7 +18,10 @@ namespace JGFBFService
             this.PlayerName = player_name;
             this.User = user;
         }
+        [DataMember]
         public String PlayerName;
+        
+        [DataMember]
         public String User;
     }
     public class JGFBFTwitter : IJGFBFTwitter
@@ -59,7 +63,8 @@ namespace JGFBFService
         private DateTime GetNextGameDay()
         {
             // TODO get the actual game day
-            return DateTime.Today;
+            DateTime date = new DateTime(2013, 1, 22);
+            return date;
         }
 
     }
