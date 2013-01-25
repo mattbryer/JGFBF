@@ -63,7 +63,7 @@ namespace JGFBFService
         private DateTime GetNextGameDay()
         {
             // TODO get the actual game day
-            DateTime date = new DateTime(2013, 1, 22);
+            DateTime date = new DateTime(2013, 1, 24);
             return date;
         }
 
