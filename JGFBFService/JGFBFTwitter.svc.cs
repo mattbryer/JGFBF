@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using Twitterizer;
+using System.Configuration;
 
 namespace JGFBFService
 {
@@ -17,11 +18,14 @@ namespace JGFBFService
         public string TestContract()
         {
             OAuthTokens tokens = new OAuthTokens();
-            tokens.ConsumerKey = "";
-            tokens.ConsumerSecret = "";
-            tokens.AccessToken = "";
-            tokens.AccessTokenSecret = "";
+            AppSettingsReader reader = new AppSettingsReader();
+            tokens.ConsumerKey = ConfigurationManager.AppSettings.Get("ConsumerKey");
+            tokens.ConsumerSecret = ConfigurationManager.AppSettings.Get("ConsumerSecret");
+            tokens.AccessToken = ConfigurationManager.AppSettings.Get("AccessToken");
+            tokens.AccessTokenSecret = ConfigurationManager.AppSettings.Get("AccessTokenSecret");
 
+
+            
             TwitterResponse<TwitterUser> userResponse = TwitterUser.Show(tokens, "Diamondroad");
             return userResponse.Content;
         }
