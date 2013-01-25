@@ -12,6 +12,6 @@ namespace JGFBFService
     public interface IJGFBFTwitter
     {
         [OperationContract]
-        string TestContract();
+        List<GamePick> TestContract();
     }
 }
