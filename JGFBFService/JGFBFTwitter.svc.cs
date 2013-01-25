@@ -10,22 +10,24 @@ using System.Configuration;
 
 namespace JGFBFService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class JGFBFTwitter : IJGFBFTwitter
     {
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        public string TestContract()
+        public OAuthTokens GetOAuthTokens()
         {
             OAuthTokens tokens = new OAuthTokens();
-            AppSettingsReader reader = new AppSettingsReader();
             tokens.ConsumerKey = ConfigurationManager.AppSettings.Get("ConsumerKey");
             tokens.ConsumerSecret = ConfigurationManager.AppSettings.Get("ConsumerSecret");
             tokens.AccessToken = ConfigurationManager.AppSettings.Get("AccessToken");
             tokens.AccessTokenSecret = ConfigurationManager.AppSettings.Get("AccessTokenSecret");
-
-
             
+            return tokens;
+        }
+
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        public string TestContract()
+        {
+            OAuthTokens tokens = GetOAuthTokens();
+
             TwitterResponse<TwitterUser> userResponse = TwitterUser.Show(tokens, "Diamondroad");
             return userResponse.Content;
         }
